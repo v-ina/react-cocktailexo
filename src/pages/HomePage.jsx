@@ -6,11 +6,10 @@ function HomePage (){
         <>
             <Header /> 
             <main>
-                <h1>bienvenue!</h1>
+                <h1>bienvenue sur King of coworkings!</h1>
                 <h2>home page</h2>
             </main>
             <Footer />
-        
         </>
     )
 }

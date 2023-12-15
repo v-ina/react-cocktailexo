@@ -1,15 +1,13 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import CocktailDetailPage from './pages/CocktailDetailPage'
-import EveryCocktailPage from './pages/EveryCocktailPage'
-import HomePage from './pages/HomePage'
+import HomePage from './pages/HomePage';
+import CoworkingsPage from './pages/CoworkingsPage';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<HomePage />}/>
-        <Route path='/everycocktail' element={<EveryCocktailPage />}/>
-        <Route path='/cocktail/:id/detail' element={<CocktailDetailPage />}/>
+        <Route path='/coworkings' element={<CoworkingsPage />} />
       </Routes>
     </BrowserRouter>
   );
