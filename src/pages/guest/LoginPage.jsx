@@ -1,8 +1,11 @@
 import Header from '../../components/guest/Header'
 import Footer from '../../components/guest/Footer'
+import { useState } from 'react'
 
 
 function LoginPage (){
+
+    const [message, setMessage] = useState(null)
 
 
     const handleLogin = async(event) => {
@@ -31,6 +34,10 @@ function LoginPage (){
 
         if(token){
             localStorage.setItem("jwt", token)   // 캐시를 삭제하거나, 토큰의 시간이 다 되면 localStorage에 jwt는 사라짐.
+            setMessage("vous etes bien connecte")
+        } else {
+            setMessage("erreur lors de la connextion")
+            // on veut recharger le composant le cas d'erruer => useState
         }
 }
 
@@ -39,6 +46,7 @@ function LoginPage (){
         <>
             <Header /> 
             <main>
+                {message && <p>{message}</p>}
                 <h1>login page</h1>
                 <form onSubmit={handleLogin} action="">
                     <label htmlFor="">username

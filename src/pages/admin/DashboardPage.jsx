@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import AdminHeader from '../../components/admin/AdminHeader'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
 
 function DashboardPage (){
@@ -22,8 +22,6 @@ function DashboardPage (){
                 navigate("/login")
             }
         }
-
-
         // si c'est pas les deux cas d'erreur, page admin en dessous va afficher 
     },[])
 
