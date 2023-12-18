@@ -28,9 +28,10 @@ function LoginPage (){
         const loginResponseData = await loginResponse.json()
         const token = loginResponseData.data
 
-        console.log(`loginresponseData`,loginResponseData);
 
-        console.log(token);
+        if(token){
+            localStorage.setItem("jwt", token)   // 캐시를 삭제하거나, 토큰의 시간이 다 되면 localStorage에 jwt는 사라짐.
+        }
 }
 
 
