@@ -5,6 +5,8 @@ import CoworkingDetailsPage from './pages/guest/CoworkingDetailsPage';
 import DashboardPage from './pages/admin/DashboardPage';
 import LoginPage from './pages/guest/LoginPage';
 import AdminCoworkingsPage from './pages/admin/AdminCoworkingsPage';
+import AdminCoworkingCreate from './pages/admin/AdminCoworkingsCreate';
+import AdminCowokringsUpdate from './pages/admin/AdminCowokringsUpdate';
 
 function App() {
   return (
@@ -16,6 +18,9 @@ function App() {
         <Route path='/admin' element={<DashboardPage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/admin/coworkings' element={<AdminCoworkingsPage />} />
+
+        <Route path='/admin/createcoworkings' element={<AdminCoworkingCreate />} />
+        <Route path='/admin/updatecoworkings/:id' element={<AdminCowokringsUpdate />} />
       </Routes>
     </BrowserRouter>
   );

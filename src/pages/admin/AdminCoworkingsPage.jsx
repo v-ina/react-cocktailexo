@@ -42,6 +42,14 @@ function AdminCoworkingsPage (){
         fetchCoworkings()
     }
 
+    const handleUpdateCoworking = async(event, coworkingId) => {
+        
+    }
+
+
+
+
+
 
     return(
         <>
@@ -57,6 +65,7 @@ function AdminCoworkingsPage (){
                                 {/* on veut utiliser plusieur parmetres pour onClick, du coup on doit appeler une fontion quand on clique le boutton */}
                                 <button onClick={(event)=> handleDeleteCoworkings(event, coworking.id)}>supprimer</button> 
                                 {/* 이렇게 parameter 2개 이상 보내고 싶으면 함수를 부르는 함수의 형태로 만들어야 함. */}
+                                <button onClick={(event) => handleUpdateCoworking(event, coworking.id)}> update </button>
                             </>)
                         })}
                         
