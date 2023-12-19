@@ -5,18 +5,20 @@ function AdminCoworkingCreate () {
 
     const [message, setMessage] = useState(null)
 
-
-
     const handleSubmitCreateCoworking = async(event) => {
         event.preventDefault()
 
     // creer un formulaire avec autant de champs 
     // qu'il y a de proprietes deans le modele cote back
 
+        let priceByMonth
+        let priceByDay
+        let priceByHour
+
+        {event.target.priceByMonth.value === '' ? priceByMonth = null : priceByMonth = event.target.priceByMonth.value }
+        {event.target.priceByDay.value === '' ? priceByDay = null : priceByDay = event.target.priceByDay.value }
+        {event.target.priceByHour.value === '' ? priceByHour = null : priceByHour = event.target.priceByHour.value }
         const name = event.target.name.value
-        const priceByMonth = event.target.priceByMonth.value
-        const priceByDay = event.target.priceByDay.value
-        const priceByHour = event.target.priceByHour.value
         const addressNumber = event.target.addressNumber.value
         const addressStreet = event.target.addressStreet.value
         const addressCity = event.target.addressCity.value
@@ -53,83 +55,13 @@ function AdminCoworkingCreate () {
             body : cowkorkingToJson
         })
 
-        console.log('month',priceByMonth, 'day', priceByDay, 'hour',priceByHour);
-
-        
-
-        if(priceByMonth == ' ' && priceByDay == ' ' && priceByHour == ' '){
-            const errorResponse = await createCoworkingResponse.json()
-            console.log(errorResponse.data);
-            setMessage(errorResponse.data)
-        } else{
-            if(createCoworkingResponse.status === 200 || createCoworkingResponse.status ===204 ) {
-                console.log(createCoworkingResponse);
-                setMessage('coworking cree!')
-            } else {
-                const errorResponse = await createCoworkingResponse.json()
-                console.log(errorResponse.data);
-                setMessage(errorResponse.data)
-            }
-        }
-
-       // mois, jour, heure 비었는데도 만들어짐. 수정 필요함  에러 캐치를 못함
-
-    }
-
-    
-
-
-/*
-        if(!coworkingsToCreate.price.month && !coworkingsToCreate.price.day && !coworkingsToCreate.price.hour){
-           
-           
-    
-            const errorResponse = await createCoworkingResponse.json()
-            console.log(errorResponse.data);
-            setMessage(errorResponse.data)
-    
-        
-        
+        if(createCoworkingResponse.status === 200 || createCoworkingResponse.status ===204 ) {
+            setMessage('coworking cree!')
         } else {
-            const token = localStorage.getItem("jwt")
-            const cowkorkingToJson = JSON.stringify(coworkingsToCreate)
-    
-            const createCoworkingResponse = await fetch("http://localhost:3001/api/coworkings", {
-                method : "POST",
-                headers : {
-                    "Content-Type" : "application/json",
-                    Authorization : `Barer ${token}`
-                },
-                body : cowkorkingToJson
-            })
+            const errorResponse = await createCoworkingResponse.json()
+            setMessage(errorResponse.data)
         }
-        */
-
-
-    // if(!priceByMonth && !priceByDay && !priceByHour){
-    //         // recuperer les valeurs du formulaire
-    //         // cree un objet avec les donnees du form
-    //         // on le covertit en JSON
-    //     console.log('cest le cas 1');
-                      
-
-           
-    //     } else {
-    //         console.log('cest le cas 2');
-    //         if(createCoworkingResponse.ok) {
-    //             setMessage(createCoworkingResponse.message)
-    //         } else {
-    //             const errorResponse = await createCoworkingResponse.json()
-    //             setMessage(errorResponse)
-    //         }
-    //     }
-    // } 
-    
-    
-
-  
-
-
+    }
 
     // on fiat un fetch de type POST sur l'url de creation
     // des coworkings

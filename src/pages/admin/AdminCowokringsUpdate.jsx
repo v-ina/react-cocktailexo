@@ -3,9 +3,11 @@ import { useParams } from "react-router-dom"
 
 function AdminCowokringsUpdate () {
 
+
     // recupere id par parametre
     const {id} = useParams()
     const [coworking, setCowokring] = useState(null)
+    const [message, setMessage] = useState(null)
 
     // appele fetch par coworking id qu'on avait recuprer de parametre url
     // response sera remplir nos formulaires
@@ -17,14 +19,69 @@ function AdminCowokringsUpdate () {
         })()
     },[])
     
-console.log(coworking);
+
+    const handleSubmitUpdate = async (event, coworkingid) =>{
+        event.preventDefault()
+
+        let priceByMonth
+        let priceByDay
+        let priceByHour
+        {event.target.priceByMonth.value === '' ? priceByMonth = null : priceByMonth = event.target.priceByMonth.value }
+        {event.target.priceByDay.value === '' ? priceByDay = null : priceByDay = event.target.priceByDay.value }
+        {event.target.priceByHour.value === '' ? priceByHour = null : priceByHour = event.target.priceByHour.value }
+        const name = event.target.name.value
+        const addressNumber = event.target.addressNumber.value
+        const addressStreet = event.target.addressStreet.value
+        const addressCity = event.target.addressCity.value
+        const addressPostCode = event.target.addressPostCode.value
+        const superficy = event.target.superficy.value
+        const capacity = event.target.capacity.value
+
+        const coworkingsToUpdate = {
+            name : name,
+            price : {
+                month : priceByMonth,
+                day : priceByDay,
+                hour : priceByHour
+            },
+            address : {
+                number : addressNumber,
+                street : addressStreet,
+                city : addressCity,
+                postCode : addressPostCode
+            },
+            superficy : superficy,
+            capacity : capacity
+        }
+
+        const cowkorkingToJson = JSON.stringify(coworkingsToUpdate)
+        const token = localStorage.getItem("jwt")
+
+        const createCoworkingResponse = await fetch(`http://localhost:3001/api/coworkings/${id}`, {
+            method : "PUT",
+            headers : {
+                "Content-Type" : "application/json",
+                Authorization : `Barer ${token}`
+            },
+            body : cowkorkingToJson
+        })
+
+
+        if(createCoworkingResponse.status === 200 || createCoworkingResponse.status ===204 ) {
+            setMessage('coworking updated!')
+        } else {
+            const errorResponse = await createCoworkingResponse.json()
+            setMessage(errorResponse.data)
+        }
+    }
+
 
     return(
         <>
             <h1>admin Coworking Update</h1>
             {coworking  && (
                 <div className='createCoworking'>
-                <form action="">
+                <form action="" onSubmit={(event)=> handleSubmitUpdate(event, id)}>
                     <label htmlFor="">
                         Name : 
                         <input type="text" name='name' defaultValue={coworking.name}/>
@@ -72,8 +129,9 @@ console.log(coworking);
                     <input type="submit" />
                 </form>
             </div>
-            )}
             
+            )}
+            {message && <p>{message}</p>}
         </>
     )
 }

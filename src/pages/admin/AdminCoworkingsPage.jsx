@@ -1,5 +1,6 @@
 import AdminHeader from '../../components/admin/AdminHeader'
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 // import { useNavigate } from 'react-router-dom';
 
 function AdminCoworkingsPage (){
@@ -42,8 +43,10 @@ function AdminCoworkingsPage (){
         fetchCoworkings()
     }
 
+
+    const navigate = useNavigate()
     const handleUpdateCoworking = async(event, coworkingId) => {
-        
+        navigate(`/admin/updatecoworkings/${coworkingId}`)
     }
 
 
